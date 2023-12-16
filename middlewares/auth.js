@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const {customError, unAuthenticatedError, badRequest } = require("../error/index");
+const {customError, unAuthenticatedError, badRequest } = require("../errors/index");
 
 
 

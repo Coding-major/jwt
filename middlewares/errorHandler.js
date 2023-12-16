@@ -1,4 +1,4 @@
-const {customError} = require("../error/index")
+const {customError} = require("../errors/index")
 const {StatusCodes} = require("http-status-codes")
 const errorHandler = (err, req, res, next) => {
 

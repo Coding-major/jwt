@@ -1,5 +1,5 @@
 jwt = require("jsonwebtoken")
-const {CustomError} = require("../error/custom-error");
+const {CustomError} = require("../errors/custom-error");
 
 const login = async (req, res) => {
     const {username, password} = req.body;
