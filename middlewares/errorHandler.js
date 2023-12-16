@@ -1,15 +1,16 @@
-const {CustomError, playCustomCode} = require("../error/custom-error")
+const {customError} = require("../error/index")
+const {StatusCodes} = require("http-status-codes")
 const errorHandler = (err, req, res, next) => {
-    if(err instanceof CustomError) {
+
+    if(err instanceof customError) {
         return res.status(err.statusCode).json({msg: err.message});
-    } else if(err instanceof playCustomCode) {
-        return res.status(err.statusCode).json({message: err.message, expose: err.expose})
     } else  {
        console.log(err)
        return res
-        .status(500)
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({msg: "Dear customer Error has occured, we will back shortly", stack: typeof err.expose});
     }
+
 }
 
 module.exports = errorHandler

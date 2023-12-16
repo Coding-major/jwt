@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const {CustomError, playCustomCode} = require("../error/custom-error")
+jwt = require("jsonwebtoken")
+const {CustomError} = require("../error/custom-error");
 
 const login = async (req, res) => {
     const {username, password} = req.body;
@@ -8,7 +8,7 @@ const login = async (req, res) => {
     }
 
     if(password.length < 8) {
-        throw new playCustomCode("password length must be 8 or more", 400, true)
+        throw new CustomError("password length must be 8 or more", 400)
     }
 
     
@@ -22,24 +22,13 @@ const login = async (req, res) => {
 
 
 const dashboard = async (req, res) => {
-    const authHeader = req.headers.authorization;
-    const names = "my name is mustapha and i am okay"
-    if (!authHeader || !authHeader.startsWith("Bearer")) {
-        throw new CustomError("No token provided", 401)
-    }
-
-   //splitting the token from the bearer and accesing the element of the new array which is element of index[1]
-    const token = authHeader.split(" ")[1]
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        const secret = Math.floor(Math.random() * 100);
-        res.status(200).json({msg: `welcome ${decoded.username}`, secret: `your secret number is ${secret}`})
-    } catch (error) {
-        throw new CustomError("Not Authorized to access this route", 401)
-    }
-
     
 
+   //splitting the token from the bearer and accesing the element of the new array which is element of index[1]
+    
+   const secret = Math.floor(Math.random() * 100);
+   res.status(200).json({msg: `welcome ${req.user.username}`, secret: `your secret number is ${secret}`})
+   
 }
 
 module.exports = {login, dashboard}
